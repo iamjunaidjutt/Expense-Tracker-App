@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from './components/NewExpense/NewExpense';
 
@@ -28,21 +29,19 @@ const App = () => {
       date: new Date(2003, 4, 1)
     }
   ];
-  const dataCollector = (data) => {
-    let d = {
-      ...data,
-      id: expenses.length + 1,
-    }
-    expenses = {
-      d,
-      ...expenses
-    };
-    console.log(expenses);
+  const [addExpense, setAddExpense] = useState(expenses);
+  const dataCollector = (newExpense) => {
+    setAddExpense([
+      ...addExpense,
+      {id: addExpense.length + 1,
+        ...newExpense
+      }
+    ]);
   };
 
   return <>
       <NewExpense data={dataCollector}/>
-      <Expenses items={expenses}/>
+      <Expenses items={addExpense}/>
     </>;
 }
 
