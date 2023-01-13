@@ -2,7 +2,7 @@ import Expenses from "./components/Expenses/Expenses";
 import NewExpense from './components/NewExpense/NewExpense';
 
 const App = () => {
-  const expenses = [
+  let expenses = [
     {
       id: 1,
       title: "Car Insurance",
@@ -28,8 +28,20 @@ const App = () => {
       date: new Date(2003, 4, 1)
     }
   ];
+  const dataCollector = (data) => {
+    let d = {
+      ...data,
+      id: expenses.length + 1,
+    }
+    expenses = {
+      d,
+      ...expenses
+    };
+    console.log(expenses);
+  };
+
   return <>
-      <NewExpense />
+      <NewExpense data={dataCollector}/>
       <Expenses items={expenses}/>
     </>;
 }
